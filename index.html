@@ -1,0 +1,2669 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=fd73e9ae-2aee-449e-a987-4b0e160c424f
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Stylish Name Maker | Create Stylish Names</title>
+    <meta name="description" content="Create beautiful stylish Unicode names instantly with Stylish Name Maker." />
+    <meta name="theme-color" content="#06070a" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Stylish Name Maker | Create Stylish Names" />
+    <meta property="og:description" content="Create beautiful stylish Unicode names instantly with Stylish Name Maker." />
+    <meta property="og:image" content="https://files.catbox.moe/aixp6w.jpg" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Stylish Name Maker | Create Stylish Names" />
+    <meta name="twitter:description" content="Create beautiful stylish Unicode names instantly with Stylish Name Maker." />
+    <meta name="twitter:image" content="https://files.catbox.moe/aixp6w.jpg" />
+
+    <link rel="icon" type="image/jpeg" href="https://files.catbox.moe/aixp6w.jpg" />
+
+    <style>
+      :root {
+        --bg-main: #06070a;
+        --bg-card: rgba(18, 14, 28, 0.72);
+
+        --bg-card-hover: rgba(28, 20, 44, 0.88);
+        --purple-primary: #a855f7;
+        --purple-neon: #c084fc;
+        --purple-glow: rgba(168, 85, 247, 0.4);
+        --green-primary: #10b981;
+        --green-neon: #34d399;
+        --green-glow: rgba(16, 185, 129, 0.4);
+        --text-main: #f9fafb;
+        --text-muted: #9ca3af;
+        --border-glass: rgba(255, 255, 255, 0.09);
+        --border-purple: rgba(168, 85, 247, 0.35);
+        --border-green: rgba(16, 185, 129, 0.35);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        overflow-x: hidden;
+      }
+
+      body {
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        background: radial-gradient(circle at 50% 0%, #170e30 0%, #06070a 70%);
+      }
+
+      /* Animated Background Lights & Particles */
+      #particle-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.5;
+      }
+
+      .glow-blob {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(100px);
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.22;
+        animation: floatGlow 16s ease-in-out infinite alternate;
+      }
+
+      .blob-purple-1 {
+        top: 2%;
+        left: 8%;
+        width: 380px;
+        height: 380px;
+        background: #9333ea;
+      }
+
+      .blob-green-1 {
+        top: 35%;
+        right: 5%;
+        width: 340px;
+        height: 340px;
+        background: #059669;
+        animation-delay: -6s;
+      }
+
+      .blob-purple-2 {
+        bottom: 8%;
+        left: 20%;
+        width: 400px;
+        height: 400px;
+        background: #7e22ce;
+        animation-delay: -10s;
+      }
+
+      @keyframes floatGlow {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(40px, 50px) scale(1.12); }
+        100% { transform: translate(-30px, 25px) scale(0.92); }
+      }
+
+      /* Layout Wrapper */
+      .app-container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+
+      /* Header */
+      header.app-header {
+        padding: 16px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border-glass);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(6, 7, 10, 0.75);
+      }
+
+      .header-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: #fff;
+      }
+
+      .logo-ring {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        padding: 2px;
+        background: linear-gradient(135deg, var(--purple-primary), var(--green-primary));
+        box-shadow: 0 0 16px var(--purple-glow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .logo-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .brand-title {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        background: linear-gradient(135deg, #ffffff 40%, var(--purple-neon) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        list-style: none;
+      }
+
+      .header-nav a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+
+      .header-nav a:hover {
+        color: #fff;
+      }
+
+      .btn-header-tg {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        border-radius: 9999px;
+        background: rgba(56, 189, 248, 0.12);
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.25s;
+      }
+
+      .btn-header-tg:hover {
+        background: rgba(56, 189, 248, 0.25);
+        box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+        transform: translateY(-1px);
+      }
+
+      /* Hero Section */
+      .hero-wrap {
+        text-align: center;
+        padding: 48px 0 32px;
+      }
+
+      .hero-logo-box {
+        width: 82px;
+        height: 82px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        padding: 3px;
+        background: linear-gradient(135deg, var(--purple-primary), #38bdf8, var(--green-primary));
+        box-shadow: 0 0 32px var(--purple-glow), 0 0 20px var(--green-glow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulseHeroGlow 5s infinite alternate ease-in-out;
+      }
+
+      @keyframes pulseHeroGlow {
+        0% { box-shadow: 0 0 24px var(--purple-glow), 0 0 16px var(--green-glow); }
+        100% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.65), 0 0 30px rgba(16, 185, 129, 0.55); }
+      }
+
+      .hero-h1 {
+        font-size: clamp(34px, 6.5vw, 56px);
+        font-weight: 900;
+        letter-spacing: -0.5px;
+        line-height: 1.15;
+        margin-bottom: 12px;
+      }
+
+      .hero-gradient-text {
+        background: linear-gradient(135deg, #ffffff 15%, #d8b4fe 60%, #34d399 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-tagline {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--green-neon);
+        margin-bottom: 12px;
+        padding: 4px 14px;
+        border-radius: 9999px;
+        background: rgba(16, 185, 129, 0.12);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .hero-sub {
+        font-size: clamp(16px, 3.5vw, 19px);
+        color: var(--text-muted);
+        max-width: 540px;
+        margin: 0 auto 28px;
+        line-height: 1.5;
+      }
+
+      .hero-btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .btn-hero-primary {
+        padding: 15px 36px;
+        font-size: 16px;
+        font-weight: 800;
+        border-radius: 9999px;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        background: linear-gradient(135deg, #9333ea 0%, #10b981 100%);
+        box-shadow: 0 8px 26px var(--purple-glow), 0 0 18px var(--green-glow);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        text-decoration: none;
+      }
+
+      .btn-hero-primary:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 12px 36px rgba(147, 51, 234, 0.6), 0 0 24px rgba(16, 185, 129, 0.6);
+      }
+
+      .btn-hero-telegram {
+        padding: 14px 26px;
+        font-size: 15px;
+        font-weight: 700;
+        border-radius: 9999px;
+        background: rgba(18, 14, 28, 0.85);
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.25s;
+      }
+
+      .btn-hero-telegram:hover {
+        background: rgba(56, 189, 248, 0.18);
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+        transform: translateY(-2px);
+      }
+
+      /* Generator Glass Panel */
+      .gen-panel {
+        background: var(--bg-card);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border-purple);
+        border-radius: 24px;
+        padding: 28px 24px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 24px var(--purple-glow);
+        margin: 24px auto 36px;
+        max-width: 720px;
+      }
+
+      .panel-label {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        color: #e5e7eb;
+        margin-bottom: 10px;
+        text-align: left;
+      }
+
+      .input-flex-row {
+        display: flex;
+        gap: 12px;
+        flex-direction: column;
+      }
+
+      @media (min-width: 600px) {
+        .input-flex-row {
+          flex-direction: row;
+        }
+      }
+
+      .input-name-box {
+        flex: 1;
+        padding: 15px 20px;
+        font-size: 17px;
+        font-weight: 600;
+        border-radius: 14px;
+        background: rgba(8, 6, 14, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #fff;
+        outline: none;
+        transition: all 0.25s;
+      }
+
+      .input-name-box:focus {
+        border-color: var(--purple-primary);
+        box-shadow: 0 0 20px var(--purple-glow);
+      }
+
+      .input-name-box::placeholder {
+        color: #6b7280;
+      }
+
+      .btn-generate-action {
+        padding: 15px 26px;
+        border-radius: 14px;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        background: linear-gradient(135deg, var(--purple-primary), var(--green-primary));
+        box-shadow: 0 4px 20px var(--purple-glow);
+        white-space: nowrap;
+        transition: all 0.25s;
+      }
+
+      .btn-generate-action:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 26px rgba(168, 85, 247, 0.55);
+      }
+
+      /* Presets Row */
+      .chips-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+
+      .chips-label {
+        font-size: 12px;
+        color: #9ca3af;
+        font-weight: 600;
+      }
+
+      .chip-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #d1d5db;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .chip-btn:hover {
+        background: rgba(168, 85, 247, 0.25);
+        border-color: var(--purple-primary);
+        color: #fff;
+      }
+
+      /* Search & Categories */
+      .filter-toolbar {
+        margin-bottom: 24px;
+      }
+
+      .search-box-wrap {
+        position: relative;
+        margin-bottom: 16px;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6b7280;
+        pointer-events: none;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 13px 18px 13px 44px;
+        font-size: 15px;
+        border-radius: 14px;
+        background: rgba(18, 14, 28, 0.65);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid var(--border-glass);
+        color: #fff;
+        outline: none;
+        transition: all 0.25s;
+      }
+
+      .search-input:focus {
+        border-color: var(--green-primary);
+        box-shadow: 0 0 16px var(--green-glow);
+      }
+
+      .categories-scroll {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+      }
+
+      .categories-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
+      .cat-pill {
+        padding: 8px 16px;
+        border-radius: 9999px;
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #9ca3af;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .cat-pill:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      .cat-pill.active {
+        background: linear-gradient(135deg, var(--purple-primary), var(--green-primary));
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 0 16px var(--purple-glow);
+      }
+
+      /* Control Actions Bar */
+      .results-meta-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .results-count-text {
+        font-size: 19px;
+        font-weight: 800;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .badge-counter {
+        font-size: 12px;
+        font-weight: 800;
+        padding: 2px 10px;
+        border-radius: 9999px;
+        background: rgba(16, 185, 129, 0.18);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        color: var(--green-neon);
+      }
+
+      .actions-flex {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .btn-control {
+        padding: 8px 15px;
+        font-size: 13px;
+        font-weight: 700;
+        border-radius: 10px;
+        border: 1px solid var(--border-glass);
+        background: rgba(255, 255, 255, 0.05);
+        color: #e5e7eb;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
+      }
+
+      .btn-control:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      .btn-control-purple {
+        background: rgba(168, 85, 247, 0.15);
+        border-color: var(--border-purple);
+        color: #c084fc;
+      }
+
+      .btn-control-purple:hover {
+        background: rgba(168, 85, 247, 0.28);
+        box-shadow: 0 0 14px var(--purple-glow);
+        color: #fff;
+      }
+
+      .btn-control-green {
+        background: rgba(16, 185, 129, 0.15);
+        border-color: var(--border-green);
+        color: #34d399;
+      }
+
+      .btn-control-green:hover {
+        background: rgba(16, 185, 129, 0.28);
+        box-shadow: 0 0 14px var(--green-glow);
+        color: #fff;
+      }
+
+      /* Results Cards Grid */
+      .cards-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-bottom: 48px;
+      }
+
+      @media (min-width: 640px) {
+        .cards-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1000px) {
+        .cards-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .name-card {
+        background: var(--bg-card);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--border-glass);
+        border-radius: 16px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .name-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--purple-neon), transparent);
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+
+      .name-card:hover {
+        background: var(--bg-card-hover);
+        border-color: rgba(168, 85, 247, 0.45);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 18px rgba(168, 85, 247, 0.22);
+      }
+
+      .name-card:hover::before {
+        opacity: 1;
+      }
+
+      .card-top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .card-tag {
+        font-size: 11px;
+        font-weight: 700;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .card-num {
+        font-size: 11px;
+        color: #4b5563;
+        font-family: monospace;
+      }
+
+      .card-text {
+        font-size: 18px;
+        font-weight: 600;
+        color: #ffffff;
+        word-break: break-all;
+        padding: 6px 0;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        user-select: all;
+      }
+
+      .card-btn-row {
+        display: flex;
+        gap: 8px;
+      }
+
+      .btn-card-copy {
+        flex: 1;
+        padding: 9px 12px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        color: #e5e7eb;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.2s;
+      }
+
+      .btn-card-copy:hover {
+        background: rgba(168, 85, 247, 0.25);
+        border-color: var(--purple-primary);
+        color: #fff;
+        box-shadow: 0 0 12px var(--purple-glow);
+      }
+
+      .btn-card-copy.copied {
+        background: rgba(16, 185, 129, 0.28) !important;
+        border-color: var(--green-primary) !important;
+        color: #34d399 !important;
+        box-shadow: 0 0 14px var(--green-glow) !important;
+      }
+
+      .btn-card-preview {
+        padding: 9px 12px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        background: rgba(56, 189, 248, 0.08);
+        color: #38bdf8;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        transition: all 0.2s;
+      }
+
+      .btn-card-preview:hover {
+        background: rgba(56, 189, 248, 0.2);
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+      }
+
+      /* CYBER X OF BANGLADESH*/
+      .cyber-network-box {
+        background: linear-gradient(135deg, rgba(8, 24, 18, 0.85) 0%, rgba(14, 32, 24, 0.95) 100%);
+        border: 1px solid var(--border-green);
+        border-radius: 24px;
+        padding: 36px 24px;
+        margin: 40px auto 48px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.65), 0 0 26px var(--green-glow);
+      }
+
+      .cyber-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 14px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--green-neon);
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        margin-bottom: 12px;
+      }
+
+      .cyber-title {
+        font-size: clamp(22px, 4.5vw, 32px);
+        font-weight: 900;
+        color: #ffffff;
+        margin-bottom: 10px;
+      }
+
+      .cyber-desc {
+        font-size: 15px;
+        color: #9ca3af;
+        max-width: 500px;
+        margin: 0 auto 20px;
+        line-height: 1.5;
+      }
+
+      .btn-cyber-action {
+        padding: 13px 30px;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+        color: #ffffff;
+        font-weight: 800;
+        font-size: 14px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 6px 24px rgba(16, 185, 129, 0.45);
+        transition: all 0.25s;
+      }
+
+      .btn-cyber-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 32px rgba(16, 185, 129, 0.65);
+      }
+
+      /* Features Section */
+      .features-wrap {
+        margin-bottom: 48px;
+      }
+
+      .section-heading {
+        text-align: center;
+        font-size: 26px;
+        font-weight: 900;
+        color: #fff;
+        margin-bottom: 24px;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+      }
+
+      .feat-card {
+        background: var(--bg-card);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid var(--border-glass);
+        border-radius: 16px;
+        padding: 18px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .feat-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: rgba(168, 85, 247, 0.15);
+        color: #c084fc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .feat-title {
+        font-size: 14px;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 4px;
+      }
+
+      .feat-desc {
+        font-size: 12px;
+        color: #9ca3af;
+        line-height: 1.4;
+      }
+
+      /* About Section */
+      .about-wrap {
+        background: var(--bg-card);
+        border: 1px solid var(--border-glass);
+        border-radius: 24px;
+        padding: 32px 24px;
+        margin-bottom: 48px;
+      }
+
+      .about-h3 {
+        font-size: 22px;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 12px;
+      }
+
+      .about-p {
+        font-size: 15px;
+        color: var(--text-muted);
+        line-height: 1.7;
+      }
+
+      /* Footer */
+      footer.app-footer {
+        border-top: 1px solid var(--border-glass);
+        padding: 40px 0 48px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .footer-name {
+        font-size: 20px;
+        font-weight: 900;
+        background: linear-gradient(135deg, #ffffff 40%, var(--purple-neon) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .footer-tagline {
+        font-size: 13px;
+        color: var(--green-neon);
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+
+      .footer-dev {
+        font-size: 14px;
+        color: #9ca3af;
+      }
+
+      .footer-dev strong {
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .footer-btns-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .btn-footer-link {
+        padding: 9px 18px;
+        border-radius: 9999px;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #e5e7eb;
+        border: 1px solid var(--border-glass);
+        transition: all 0.2s;
+      }
+
+      .btn-footer-link:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+      }
+
+      .footer-copy {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 8px;
+      }
+
+      /* Preview Modal */
+      .modal-scrim {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.78);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        padding: 16px;
+      }
+
+      .modal-scrim.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .glass-modal-card {
+        width: 100%;
+        max-width: 520px;
+        background: rgba(18, 14, 28, 0.94);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--border-purple);
+        border-radius: 24px;
+        padding: 28px 24px;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), 0 0 30px var(--purple-glow);
+        transform: scale(0.95);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+      }
+
+      .modal-scrim.active .glass-modal-card {
+        transform: scale(1);
+      }
+
+      .btn-modal-close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        transition: all 0.2s;
+      }
+
+      .btn-modal-close:hover {
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+      }
+
+      .modal-heading {
+        font-size: 20px;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 4px;
+      }
+
+      .modal-sub {
+        font-size: 13px;
+        color: #9ca3af;
+        margin-bottom: 18px;
+      }
+
+      /* Preview Card */
+      .preview-display-card {
+        background: linear-gradient(135deg, #100b20 0%, #060e12 100%);
+        border: 1px solid var(--purple-primary);
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 25px rgba(168, 85, 247, 0.15);
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .preview-badge-top {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--purple-neon);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      .preview-big-name {
+        font-size: clamp(24px, 5vw, 36px);
+        font-weight: 800;
+        color: #ffffff;
+        word-break: break-all;
+        padding: 10px 0;
+        min-height: 52px;
+      }
+
+      .preview-sub-decor {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px dashed rgba(255, 255, 255, 0.12);
+        font-size: 14px;
+        color: #d1d5db;
+      }
+
+      .preview-actions-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn-download-shot {
+        flex: 1;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--green-primary), #059669);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 18px var(--green-glow);
+        transition: all 0.25s;
+      }
+
+      .btn-download-shot:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 24px rgba(16, 185, 129, 0.6);
+      }
+
+      .btn-preview-copy {
+        flex: 1;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 800;
+        background: rgba(168, 85, 247, 0.2);
+        border: 1px solid var(--border-purple);
+        color: #c084fc;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.25s;
+      }
+
+      .btn-preview-copy:hover {
+        background: rgba(168, 85, 247, 0.35);
+        color: #fff;
+      }
+
+      /* Telegram Notification Popup */
+      .tg-float-popup {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: calc(100% - 48px);
+        max-width: 380px;
+        background: rgba(15, 12, 26, 0.94);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        border-radius: 20px;
+        padding: 20px;
+        z-index: 1500;
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.75), 0 0 24px rgba(56, 189, 248, 0.25);
+        transform: translateY(140%);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .tg-float-popup.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .tg-popup-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .tg-icon-circle {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(56, 189, 248, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #38bdf8;
+        flex-shrink: 0;
+      }
+
+      .tg-popup-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: #fff;
+      }
+
+      .tg-popup-text {
+        font-size: 13px;
+        color: #9ca3af;
+        margin-bottom: 16px;
+        line-height: 1.4;
+      }
+
+      .tg-popup-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn-tg-join {
+        flex: 1;
+        padding: 10px 14px;
+        background: #0284c7;
+        color: #fff;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 800;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .btn-tg-join:hover {
+        background: #0369a1;
+      }
+
+      .btn-tg-later {
+        padding: 10px 16px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #9ca3af;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-tg-later:hover {
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+      }
+
+      .btn-tg-close-x {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+
+      .btn-tg-close-x:hover {
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+      }
+
+      /* Toast Notification */
+      .app-toast {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: rgba(16, 14, 24, 0.96);
+        border: 1px solid var(--green-primary);
+        color: var(--green-neon);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 20px var(--green-glow);
+        padding: 11px 22px;
+        border-radius: 9999px;
+        font-size: 14px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 3000;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .app-toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      /* Loading Screen */
+      #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #06070a;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        transition: opacity 0.4s ease, visibility 0.4s;
+      }
+
+      #loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .loader-ring {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        padding: 3px;
+        background: linear-gradient(135deg, var(--purple-primary), var(--green-primary));
+        box-shadow: 0 0 32px var(--purple-glow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: spinLoader 2s linear infinite;
+      }
+
+      @keyframes spinLoader {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .loader-logo {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .loader-title {
+        font-size: 18px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        color: #ffffff;
+      }
+
+      .loader-sub {
+        font-size: 13px;
+        font-weight: 600;
+        color: #9ca3af;
+      }
+
+      .loader-bar-bg {
+        width: 160px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 9999px;
+        overflow: hidden;
+      }
+
+      .loader-bar-line {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--purple-primary), var(--green-primary));
+        animation: fillLoader 0.65s ease-out forwards;
+      }
+
+      @keyframes fillLoader {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(0%); }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Initial Loading Screen -->
+    <div id="loading-screen">
+      <div class="loader-ring">
+        <img
+          src="https://files.catbox.moe/aixp6w.jpg"
+          alt="Stylish Name Maker Logo"
+          class="loader-logo"
+          onerror="this.style.display='none'"
+        />
+      </div>
+      <div class="loader-title">STYLISH NAME MAKER</div>
+      <div class="loader-sub">Loading...</div>
+      <div class="loader-bar-bg">
+        <div class="loader-bar-line"></div>
+      </div>
+    </div>
+
+    <!-- Background Glow Blobs -->
+    <div class="glow-blob blob-purple-1"></div>
+    <div class="glow-blob blob-green-1"></div>
+    <div class="glow-blob blob-purple-2"></div>
+
+    <!-- Background Particles Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+      <!-- Header -->
+      <header class="app-header" id="home">
+        <a href="#home" class="header-brand">
+          <div class="logo-ring">
+            <img
+              src="https://files.catbox.moe/aixp6w.jpg"
+              alt="Logo"
+              class="logo-img"
+              onerror="this.style.display='none'"
+            />
+          </div>
+          <span class="brand-title">STYLISH NAME MAKER</span>
+        </a>
+
+        <ul class="header-nav">
+          <li><a href="#generator">Generator</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#about">About</a></li>
+          <li>
+            <a
+              href="https://t.me/+qFllt01YeXk2YzQ1"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-header-tg"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+              <span>Telegram</span>
+            </a>
+          </li>
+        </ul>
+      </header>
+
+      <!-- Hero Section -->
+      <section class="hero-wrap">
+        <div class="hero-logo-box">
+          <img
+            src="https://files.catbox.moe/aixp6w.jpg"
+            alt="Stylish Name Maker Logo"
+            class="logo-img"
+            onerror="this.style.display='none'"
+          />
+        </div>
+
+        <div class="hero-tagline">Create Your Name. Make It Stylish.</div>
+
+        <h1 class="hero-h1">
+          <span class="hero-gradient-text">STYLISH NAME MAKER</span>
+        </h1>
+
+        <p class="hero-sub">
+          Turn any normal English name into beautiful stylish names instantly.
+        </p>
+
+        <div class="hero-btns">
+          <a href="#generator" class="btn-hero-primary" id="heroGenerateBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            <span>GENERATE NOW</span>
+          </a>
+
+          <a
+            href="https://+qFllt01YeXk2YzQ1"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-hero-telegram"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span>JOIN OUR TELEGRAM CHANNEL</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Generator Glass Panel -->
+      <section class="gen-panel" id="generator">
+        <label for="nameInput" class="panel-label">Enter Your Name</label>
+        <div class="input-flex-row">
+          <input
+            type="text"
+            id="nameInput"
+            class="input-name-box"
+            placeholder="Type your English name..."
+            value="cxofb"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="btn-generate-action" id="generateActionBtn">
+            GENERATE STYLISH NAMES
+          </button>
+        </div>
+
+        <!-- Quick Idea Chips -->
+        <div class="chips-row">
+          <span class="chips-label">Popular Names:</span>
+          <span class="chip-btn" data-val="Sam">Sam</span>
+          <span class="chip-btn" data-val="Devil">Devil</span>
+          <span class="chip-btn" data-val="Shadow">Shadow</span>
+          <span class="chip-btn" data-val="King">King</span>
+          <span class="chip-btn" data-val="Angel">Angel</span>
+          <span class="chip-btn" data-val="Legend">Legend</span>
+          <span class="chip-btn" data-val="Toxic">Toxic</span>
+          <span class="chip-btn" data-val="Cyber">Cyber</span>
+        </div>
+      </section>
+
+      <!-- Search & Categories Filter -->
+      <div class="filter-toolbar">
+        <div class="search-box-wrap">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            id="styleSearchInput"
+            class="search-input"
+            placeholder="Search styles..."
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Categories Scroll -->
+        <div class="categories-scroll" id="categoriesBar">
+          <button class="cat-pill active" data-cat="All">All</button>
+          <button class="cat-pill" data-cat="Fancy">Fancy</button>
+          <button class="cat-pill" data-cat="Bold">Bold</button>
+          <button class="cat-pill" data-cat="Italic">Italic</button>
+          <button class="cat-pill" data-cat="Gaming">Gaming</button>
+          <button class="cat-pill" data-cat="Cool">Cool</button>
+          <button class="cat-pill" data-cat="Symbols">Symbols</button>
+          <button class="cat-pill" data-cat="Minimal">Minimal</button>
+          <button class="cat-pill" data-cat="Royal">Royal</button>
+          <button class="cat-pill" data-cat="Cute">Cute</button>
+          <button class="cat-pill" data-cat="Dark">Dark</button>
+          <button class="cat-pill" data-cat="Social Media">Social Media</button>
+          <button class="cat-pill" data-cat="Instagram">Instagram</button>
+          <button class="cat-pill" data-cat="Facebook">Facebook</button>
+          <button class="cat-pill" data-cat="TikTok">TikTok</button>
+          <button class="cat-pill" data-cat="Gaming ID">Gaming ID</button>
+        </div>
+      </div>
+
+      <!-- Control Toolbar -->
+      <div class="results-meta-bar">
+        <div class="results-count-text">
+          <span>Results</span>
+          <span class="badge-counter" id="resultsCountBadge">0 Styles</span>
+        </div>
+
+        <div class="actions-flex">
+          <button class="btn-control btn-control-purple" id="btnCopyAllStyles" title="Copy all currently displayed styles">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>COPY ALL STYLES</span>
+          </button>
+
+          <button class="btn-control btn-control-green" id="btnQuickPreview" title="Open preview card">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span>PREVIEW</span>
+          </button>
+
+          <button class="btn-control" id="btnClearAction" title="Clear input">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            <span>Clear</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Generated Style Cards Grid -->
+      <div class="cards-grid" id="cardsGrid"></div>
+
+      <!-- CYBER X OF BANGLADESH-->
+      <section class="cyber-network-box" id="CXOFB">
+        <div class="cyber-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Official Network</span>
+        </div>
+
+        <h2 class="cyber-title">CYBER X OF BANGLADESH</h2>
+
+        <p class="cyber-desc">
+          Join Our CYBER X OF BANGLADESH. Stay connected with our CYBER X OF BANGLADESH, tech resources and updates.
+        </p>
+
+        <a
+          href="https://t.me/+qFllt01YeXk2YzQ1"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-cyber-action"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+          <span>JOIN CYBER X OF BANGLADESH</span>
+        </a>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features-wrap" id="features">
+        <h2 class="section-heading">Why Choose Stylish Name Maker</h2>
+        <div class="features-grid">
+          <div class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <div>
+              <div class="feat-title">Unlimited Style Generation</div>
+              <div class="feat-desc">Dynamic engine combining mathematical Unicode and aesthetic templates.</div>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="feat-title">One Click Copy</div>
+              <div class="feat-desc">Instant clipboard copying with subtle visual success confirmations.</div>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </div>
+            <div>
+              <div class="feat-title">Live Preview</div>
+              <div class="feat-desc">Showcase names on a dark neon profile banner before using them.</div>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+            <div>
+              <div class="feat-title">Screenshot Download</div>
+              <div class="feat-desc">Save clean high-resolution image cards locally in your browser.</div>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+              </svg>
+            </div>
+            <div>
+              <div class="feat-title">Mobile Friendly</div>
+              <div class="feat-desc">Designed mobile-first with smooth gestures, touch targets and no lag.</div>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <line x1="19" y1="8" x2="19" y2="14"></line>
+                <line x1="22" y1="11" x2="16" y2="11"></line>
+              </svg>
+            </div>
+            <div>
+              <div class="feat-title">No Login Required</div>
+              <div class="feat-desc">Open and create instantly without registrations or account sign-ups.</div>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="12 6 12 12 16 14"></polygon>
+              </svg>
+            </div>
+            <div>
+              <div class="feat-title">Fast Browser Based Generator</div>
+              <div class="feat-desc">Runs 100% locally with zero latency, zero backend, and zero API calls.</div>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="feat-title">Privacy Friendly</div>
+              <div class="feat-desc">Your names are never collected or sent to any server anywhere.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section class="about-wrap" id="about">
+        <h3 class="about-h3">About Stylish Name Maker</h3>
+        <p class="about-p">
+          Stylish Name Maker is a free online tool that transforms normal English names into beautiful, creative and stylish Unicode names. You can copy the generated names and use them on social media profiles, gaming IDs, bios, usernames and creative projects.
+        </p>
+      </section>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <div class="footer-name">STYLISH NAME MAKER</div>
+        <div class="footer-tagline">Create Your Name. Make It Stylish.</div>
+        <div class="footer-dev">Developer by : <strong>CYBER X OF BANGLADESH</strong></div>
+
+        <div class="footer-btns-row">
+          <a
+            href="https://t.me/+qFllt01YeXk2YzQ1"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-footer-link"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span>Join Telegram Channel</span>
+          </a>
+
+          <a
+            href="https://t.me/+qFllt01YeXk2YzQ1"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-footer-link"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>Join  Cyber Network</span>
+          </a>
+        </div>
+
+        <div class="footer-copy">© 2026 Stylish Name Maker. All Rights Reserved.</div>
+      </footer>
+    </div>
+
+    <!-- Live Preview Modal -->
+    <div class="modal-scrim" id="previewModal">
+      <div class="glass-modal-card">
+        <button class="btn-modal-close" id="btnClosePreview" title="Close preview">&times;</button>
+        <div class="modal-heading">Social Profile Preview</div>
+        <div class="modal-sub">Preview and download high-resolution screenshot card</div>
+
+        <div class="preview-display-card" id="previewCanvasCard">
+          <div class="preview-badge-top">STYLISH NAME MAKER • PREMIUM ID</div>
+          <div class="preview-big-name" id="previewModalName">꧁cxofb꧂</div>
+          <div class="preview-sub-decor">
+            <div id="previewSample1">亗 cxofb 亗</div>
+            <div id="previewSample2">𝓢𝓪𝓶</div>
+            <div id="previewSample3">𓆩cxofb𓆪</div>
+          </div>
+        </div>
+
+        <div class="preview-actions-row">
+          <button class="btn-download-shot" id="btnDownloadScreenshot">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>DOWNLOAD SCREENSHOT</span>
+          </button>
+
+          <button class="btn-preview-copy" id="btnCopyFromModal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy Text</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Telegram Notification Popup -->
+    <div class="tg-float-popup" id="telegramPopup">
+      <button class="btn-tg-close-x" id="btnTgCloseX" title="Dismiss">&times;</button>
+      <div class="tg-popup-header">
+        <div class="tg-icon-circle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </div>
+        <div class="tg-popup-title">Join Our Telegram</div>
+      </div>
+      <div class="tg-popup-text">
+        Stay updated with our latest tools, projects and updates.
+      </div>
+      <div class="tg-popup-actions">
+        <a
+          href="https://t.me/+qFllt01YeXk2YzQ1"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-tg-join"
+          id="btnTgJoinNow"
+        >
+          JOIN NOW
+        </a>
+        <button class="btn-tg-later" id="btnTgLater">LATER</button>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="app-toast" id="appToast">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span id="toastMessage">Copied successfully ✓</span>
+    </div>
+
+    <!-- Complete Vanilla JavaScript Engine -->
+    <script>
+      (function () {
+        'use strict';
+
+        // 1. Initial Loading Screen Dismissal (Failsafe guarantee)
+        window.addEventListener('load', function () {
+          setTimeout(function () {
+            var loader = document.getElementById('loading-screen');
+            if (loader) loader.classList.add('hidden');
+          }, 350);
+        });
+        setTimeout(function () {
+          var loader = document.getElementById('loading-screen');
+          if (loader && !loader.classList.contains('hidden')) {
+            loader.classList.add('hidden');
+          }
+        }, 1200);
+
+        // 2. Ambient Particles Canvas
+        var canvas = document.getElementById('particle-canvas');
+        if (canvas) {
+          var ctx = canvas.getContext('2d');
+          var particles = [];
+          var w, h;
+
+          function resizeCanvas() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+          }
+          resizeCanvas();
+          window.addEventListener('resize', resizeCanvas);
+
+          for (var i = 0; i < 28; i++) {
+            particles.push({
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+              radius: Math.random() * 2 + 0.8,
+              vx: (Math.random() - 0.5) * 0.4,
+              vy: (Math.random() - 0.5) * 0.4,
+              color: Math.random() > 0.5 ? 'rgba(168, 85, 247, 0.45)' : 'rgba(16, 185, 129, 0.45)',
+            });
+          }
+
+          function animateParticles() {
+            ctx.clearRect(0, 0, w, h);
+            for (var p = 0; p < particles.length; p++) {
+              var part = particles[p];
+              part.x += part.vx;
+              part.y += part.vy;
+              if (part.x < 0) part.x = w;
+              if (part.x > w) part.x = 0;
+              if (part.y < 0) part.y = h;
+              if (part.y > h) part.y = 0;
+
+              ctx.beginPath();
+              ctx.arc(part.x, part.y, part.radius, 0, Math.PI * 2);
+              ctx.fillStyle = part.color;
+              ctx.fill();
+            }
+            requestAnimationFrame(animateParticles);
+          }
+          animateParticles();
+        }
+
+        // 3. Toast Functionality
+        var toastEl = document.getElementById('appToast');
+        var toastMsgEl = document.getElementById('toastMessage');
+        var toastTimer = null;
+
+        function showToast(text) {
+          if (!toastEl || !toastMsgEl) return;
+          toastMsgEl.textContent = text;
+          toastEl.classList.add('show');
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(function () {
+            toastEl.classList.remove('show');
+          }, 2400);
+        }
+
+        // 4. Unicode Character Font Mappings
+        var alphabet = 'abcdefghijklmnopqrstuvwxyz';
+        var ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var digits = '0123456789';
+
+        var fontMaps = {
+          bold: {
+            lower: '𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫??𝐭𝐮𝐯𝐰𝐱𝐲𝐳',
+            upper: '𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙',
+            digits: '𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗',
+            tag: 'Bold',
+            cats: ['Bold', 'Social Media', 'Instagram', 'Facebook', 'Cool'],
+          },
+          italic: {
+            lower: '𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧',
+            upper: '𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍',
+            digits: digits,
+            tag: 'Italic',
+            cats: ['Italic', 'Social Media', 'Instagram', 'Cute', 'Minimal'],
+          },
+          boldItalic: {
+            lower: '𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛',
+            upper: '𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁',
+            digits: digits,
+            tag: 'Bold Italic',
+            cats: ['Bold', 'Italic', 'Fancy', 'Royal', 'Instagram'],
+          },
+          script: {
+            lower: '𝒶𝒷𝒸𝒹ℯ𝒻ℊ𝒽𝒾𝒿𝓀𝓁𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏',
+            upper: '𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵',
+            digits: digits,
+            tag: 'Cursive Script',
+            cats: ['Fancy', 'Cute', 'Royal', 'Instagram'],
+          },
+          boldScript: {
+            lower: '𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃',
+            upper: '𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩',
+            digits: digits,
+            tag: 'Bold Cursive',
+            cats: ['Fancy', 'Royal', 'Cute', 'Social Media', 'TikTok'],
+          },
+          fraktur: {
+            lower: '𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷',
+            upper: '𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ',
+            digits: digits,
+            tag: 'Gothic Fraktur',
+            cats: ['Dark', 'Gaming', 'Gaming ID', 'Cool', 'TikTok'],
+          },
+          boldFraktur: {
+            lower: '𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟',
+            upper: '𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅',
+            digits: digits,
+            tag: 'Bold Fraktur',
+            cats: ['Dark', 'Gaming', 'Gaming ID', 'Cool'],
+          },
+          doubleStruck: {
+            lower: '𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫',
+            upper: '𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ',
+            digits: '𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡',
+            tag: 'Double Struck',
+            cats: ['Fancy', 'Cool', 'Instagram', 'TikTok'],
+          },
+          sans: {
+            lower: '𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓',
+            upper: '𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹',
+            digits: '𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫',
+            tag: 'Sans Serif',
+            cats: ['Minimal', 'Social Media'],
+          },
+          sansBold: {
+            lower: '𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇',
+            upper: '𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭',
+            digits: '𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵',
+            tag: 'Sans Bold',
+            cats: ['Bold', 'Social Media', 'Facebook'],
+          },
+          sansItalic: {
+            lower: '𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻',
+            upper: '𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡',
+            digits: digits,
+            tag: 'Sans Italic',
+            cats: ['Italic', 'Minimal'],
+          },
+          sansBoldItalic: {
+            lower: '𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯',
+            upper: '𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕',
+            digits: digits,
+            tag: 'Sans Bold Italic',
+            cats: ['Bold', 'Italic', 'Cool'],
+          },
+          monospace: {
+            lower: '𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣',
+            upper: '𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿分组QRSTUVWXYZ',
+            upperTrue: '𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉',
+            digits: '𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿',
+            tag: 'Monospace',
+            cats: ['Minimal', 'Cool'],
+          },
+          fullwidth: {
+            lower: 'ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ',
+            upper: 'ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ',
+            digits: '０１２３４５６７８９',
+            tag: 'Fullwidth Vapor',
+            cats: ['Cool', 'Cute', 'Minimal', 'Instagram'],
+          },
+          circled: {
+            lower: 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ',
+            upper: 'ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ',
+            digits: '⓪①②③④⑤⑥⑦⑧⑨',
+            tag: 'Circled Bubble',
+            cats: ['Cute', 'Symbols', 'Social Media'],
+          },
+          invertedCircled: {
+            lower: '🅐🅑🅒🅓🅔🅕🅖🅗🅘𝅘𝅥𝅮🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩',
+            upper: '🅐🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩',
+            digits: '⓿➊➋➌➍➎➏➐➑➒',
+            tag: 'Inverted Dark Bubble',
+            cats: ['Dark', 'Symbols', 'Cool', 'TikTok'],
+          },
+          squared: {
+            lower: '🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉',
+            upper: '🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉',
+            digits: digits,
+            tag: 'Squared Box',
+            cats: ['Symbols', 'Minimal'],
+          },
+          smallCaps: {
+            lower: 'ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ',
+            upper: 'ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ',
+            digits: digits,
+            tag: 'Small Caps',
+            cats: ['Minimal', 'Cool', 'Instagram', 'Gaming ID'],
+          },
+          superscript: {
+            lower: 'ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖqʳˢᵗᵘᵛʷˣʸᶻ',
+            upper: 'ᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾQᴿˢᵀᵁⱽᵂˣʸᶻ',
+            digits: '⁰¹²³⁴⁵⁶⁷⁸⁹',
+            tag: 'Superscript Tiny',
+            cats: ['Cute', 'Minimal', 'TikTok'],
+          },
+        };
+
+        // Correct upper for monospace
+        fontMaps.monospace.upper = fontMaps.monospace.upperTrue;
+
+        // Transform string using a font map
+        function applyFont(text, fontObj) {
+          var out = '';
+          var lowArr = Array.from(fontObj.lower);
+          var upArr = Array.from(fontObj.upper);
+          var digArr = Array.from(fontObj.digits || digits);
+
+          for (var i = 0; i < text.length; i++) {
+            var ch = text[i];
+            var code = ch.charCodeAt(0);
+            if (code >= 97 && code <= 122) {
+              out += lowArr[code - 97] || ch;
+            } else if (code >= 65 && code <= 90) {
+              out += upArr[code - 65] || ch;
+            } else if (code >= 48 && code <= 57) {
+              out += digArr[code - 48] || ch;
+            } else {
+              out += ch;
+            }
+          }
+          return out;
+        }
+
+        // Spaced variants
+        function spaceOut(text, sep) {
+          return text.split('').join(sep);
+        }
+
+        // Decorative Templates List
+        var decorTemplates = [
+          { prefix: '꧁', suffix: '꧂', tag: 'Aesthetic Crown', cats: ['Gaming', 'Gaming ID', 'Royal', 'Cool'] },
+          { prefix: '༺', suffix: '༻', tag: 'Mythic Wings', cats: ['Gaming', 'Gaming ID', 'Fancy', 'Royal'] },
+          { prefix: '『', suffix: '』', tag: 'Japanese Brackets', cats: ['Gaming', 'Anime', 'Cool', 'Minimal'] },
+          { prefix: '【', suffix: '】', tag: 'Lenticular Frame', cats: ['Gaming', 'Cool', 'TikTok'] },
+          { prefix: '〘', suffix: '〙', tag: 'Tortoise Shell', cats: ['Symbols', 'Minimal'] },
+          { prefix: '〖', suffix: '〗', tag: 'White Lenticular', cats: ['Symbols', 'Cool'] },
+          { prefix: '⟦', suffix: '⟧', tag: 'Double Bracket', cats: ['Minimal', 'Symbols'] },
+          { prefix: '〈', suffix: '〉', tag: 'Chevron Edge', cats: ['Minimal'] },
+          { prefix: '《', suffix: '》', tag: 'Double Chevron', cats: ['Minimal', 'Royal'] },
+          { prefix: '「', suffix: '」', tag: 'Corner Quotation', cats: ['Minimal', 'Cool'] },
+          { prefix: '亗 ', suffix: ' 亗', tag: 'Emperor Horns', cats: ['Gaming', 'Gaming ID', 'Dark'] },
+          { prefix: '乂 ', suffix: ' 乂', tag: 'Samurai Cross', cats: ['Gaming', 'Gaming ID', 'Dark'] },
+          { prefix: 'メ ', suffix: ' メ', tag: 'Katana Slash', cats: ['Gaming', 'Gaming ID', 'Cool'] },
+          { prefix: 'ツ ', suffix: ' ツ', tag: 'Smile Warrior', cats: ['Gaming', 'Cute', 'Cool'] },
+          { prefix: '么 ', suffix: ' 么', tag: 'Clan Legend', cats: ['Gaming', 'Gaming ID'] },
+          { prefix: '〆 ', suffix: ' 〆', tag: 'Shime Mark', cats: ['Gaming', 'Cool'] },
+          { prefix: '彡 ', suffix: ' 彡', tag: 'Wind Strike', cats: ['Gaming', 'Cool'] },
+          { prefix: '★ ', suffix: ' ★', tag: 'Star Classic', cats: ['Cute', 'Social Media', 'Symbols'] },
+          { prefix: '☆ ', suffix: ' ☆', tag: 'Hollow Star', cats: ['Cute', 'Minimal', 'Instagram'] },
+          { prefix: '✦ ', suffix: ' ✦', tag: 'Sparkle Neon', cats: ['Cute', 'Fancy', 'Instagram'] },
+          { prefix: '✧ ', suffix: ' ✧', tag: 'White Sparkle', cats: ['Cute', 'Fancy', 'Minimal'] },
+          { prefix: '⚡ ', suffix: ' ⚡', tag: 'Lightning Bolt', cats: ['Gaming', 'Cool', 'Dark'] },
+          { prefix: '♛ ', suffix: ' ♛', tag: 'Royal Monarch', cats: ['Royal', 'Fancy', 'Instagram'] },
+          { prefix: '♕ ', suffix: ' ♕', tag: 'Queen Crown', cats: ['Royal', 'Fancy', 'Cute'] },
+          { prefix: '☠ ', suffix: ' ☠', tag: 'Skull Dread', cats: ['Dark', 'Gaming', 'Gaming ID'] },
+          { prefix: '༒ ', suffix: ' ༒', tag: 'Tibetan Spirit', cats: ['Dark', 'Gaming', 'Royal'] },
+          { prefix: '𓆩 ', suffix: ' 𓆪', tag: 'Eagle Wings', cats: ['Dark', 'Gaming', 'Gaming ID', 'Royal'] },
+          { prefix: '𓆪 ', suffix: ' 𓆩', tag: 'Inverted Wings', cats: ['Dark', 'Gaming'] },
+          { prefix: '☬ ', suffix: ' ☬', tag: 'Khanda Warrior', cats: ['Gaming', 'Royal', 'Cool'] },
+          { prefix: '⚔ ', suffix: ' ⚔', tag: 'Battle Swords', cats: ['Gaming', 'Dark', 'Gaming ID'] },
+          { prefix: '⫷ ', suffix: ' ⫸', tag: 'Triple Arrow', cats: ['Gaming', 'Symbols'] },
+          { prefix: '◥ ', suffix: ' ◤', tag: 'Neon Prism', cats: ['Cool', 'Symbols'] },
+          { prefix: '◢ ', suffix: ' ◣', tag: 'Base Prism', cats: ['Cool', 'Symbols'] },
+          { prefix: '◈ ', suffix: ' ◈', tag: 'Diamond Crystal', cats: ['Royal', 'Symbols', 'Instagram'] },
+          { prefix: '◆ ', suffix: ' ◆', tag: 'Black Diamond', cats: ['Minimal', 'Symbols'] },
+          { prefix: '◇ ', suffix: ' ◇', tag: 'White Diamond', cats: ['Minimal', 'Symbols'] },
+          { prefix: '• ', suffix: ' •', tag: 'Dot Minimal', cats: ['Minimal', 'Social Media'] },
+          { prefix: '×͜× ', suffix: '', tag: 'Dead Smile', cats: ['Gaming', 'Gaming ID', 'Dark'] },
+          { prefix: '✿ ', suffix: ' ✿', tag: 'Cherry Blossom', cats: ['Cute', 'Instagram'] },
+          { prefix: '❀ ', suffix: ' ❀', tag: 'Flora Bloom', cats: ['Cute', 'Instagram'] },
+          { prefix: '☽ ', suffix: ' ☾', tag: 'Crescent Moons', cats: ['Cute', 'Dark', 'Instagram'] },
+          { prefix: '☣ ', suffix: ' ☣', tag: 'Biohazard', cats: ['Dark', 'Gaming'] },
+          { prefix: '♰ ', suffix: ' ♰', tag: 'Gothic Cross', cats: ['Dark', 'Gaming'] },
+          { prefix: '𑁍 ', suffix: ' 𑁍', tag: 'Lotus Petal', cats: ['Cute', 'Royal'] },
+          { prefix: '࿐ ', suffix: ' ࿐', tag: 'Swirl Cloud', cats: ['Gaming', 'Fancy'] },
+          { prefix: '亗 ', suffix: ' 亗 ᵍᵒᵈ', tag: 'God Clan', cats: ['Gaming', 'Gaming ID'] },
+          { prefix: '『TG』', suffix: ' 亗', tag: 'Esports Tag', cats: ['Gaming', 'Gaming ID'] },
+          { prefix: '亗・', suffix: '・亗', tag: 'Emperor Dot', cats: ['Gaming', 'Gaming ID'] },
+          { prefix: '༺LeGeNd༻ ', suffix: '', tag: 'Legend Prefix', cats: ['Gaming', 'Gaming ID'] },
+          { prefix: 'iAm_', suffix: '', tag: 'Gamer Gamer', cats: ['Gaming', 'Social Media'] },
+          { prefix: '★彡 ', suffix: ' 彡★', tag: 'Shooting Star', cats: ['Gaming', 'Cool'] },
+          { prefix: '°° ', suffix: ' °°', tag: 'Degrees', cats: ['Minimal', 'Symbols'] },
+          { prefix: '☬» ', suffix: ' «☬', tag: 'Warrior Crest', cats: ['Gaming', 'Royal'] },
+          { prefix: '𝄟 ', suffix: ' 𝄟', tag: 'Musical Cadence', cats: ['Fancy', 'Cute'] },
+          { prefix: 'ᦓ ', suffix: ' ᦓ', tag: 'Snake Curve', cats: ['Fancy', 'Gaming'] },
+          { prefix: '〤 ', suffix: ' 〤', tag: 'X-Sign', cats: ['Gaming', 'Dark'] },
+        ];
+
+        // 5. UNLIMITED Dynamic Style Generation Engine
+        function generateAllStyles(rawName) {
+          var name = (rawName || '').trim();
+          if (!name) name = '';
+
+          var results = [];
+          var seen = {};
+
+          function addResult(styledText, tag, categories) {
+            if (!styledText) return;
+            var cleanText = styledText.trim();
+            if (!cleanText || seen[cleanText]) return;
+            seen[cleanText] = true;
+
+            var cats = ['All'].concat(categories || []);
+            results.push({
+              text: cleanText,
+              tag: tag || 'Stylish',
+              cats: cats,
+            });
+          }
+
+          // A. Pure Font Conversions
+          for (var key in fontMaps) {
+            var f = fontMaps[key];
+            var transformed = applyFont(name, f);
+            addResult(transformed, f.tag, f.cats);
+          }
+
+          // B. Spacing Styles
+          addResult(spaceOut(name, ' '), 'Wide Spaced', ['Minimal', 'Cool', 'Social Media']);
+          addResult(spaceOut(name, '  '), 'Ultra Spaced', ['Minimal', 'Cool']);
+          addResult(spaceOut(name, '•'), 'Dot Separated', ['Minimal', 'Symbols']);
+          addResult(spaceOut(name, 'ㅤ'), 'Invisible Space', ['Gaming', 'Gaming ID', 'Cool']);
+          addResult(spaceOut(name, '_'), 'Underscore Chain', ['Minimal', 'Gaming ID']);
+          addResult(spaceOut(name, ' - '), 'Dash Spaced', ['Minimal']);
+
+          // C. Combinations of Top Fonts with Decorative Templates
+          var topFonts = [
+            { fn: function(n) { return n; }, label: 'Standard' },
+            { fn: function(n) { return applyFont(n, fontMaps.bold); }, label: 'Bold' },
+            { fn: function(n) { return applyFont(n, fontMaps.boldScript); }, label: 'Bold Cursive' },
+            { fn: function(n) { return applyFont(n, fontMaps.boldFraktur); }, label: 'Bold Fraktur' },
+            { fn: function(n) { return applyFont(n, fontMaps.doubleStruck); }, label: 'Double Struck' },
+            { fn: function(n) { return applyFont(n, fontMaps.smallCaps); }, label: 'Small Caps' },
+            { fn: function(n) { return applyFont(n, fontMaps.sansBold); }, label: 'Sans Bold' },
+            { fn: function(n) { return applyFont(n, fontMaps.fullwidth); }, label: 'Fullwidth' },
+          ];
+
+          // Systematically cross-generate with decorative templates
+          for (var d = 0; d < decorTemplates.length; d++) {
+            var tmpl = decorTemplates[d];
+
+            for (var tf = 0; tf < topFonts.length; tf++) {
+              var tFont = topFonts[tf];
+              var fontApplied = tFont.fn(name);
+              var fullStyled = tmpl.prefix + fontApplied + tmpl.suffix;
+              addResult(
+                fullStyled,
+                tmpl.tag + (tFont.label !== 'Standard' ? ' (' + tFont.label + ')' : ''),
+                tmpl.cats.concat(tFont.label === 'Bold' ? ['Bold'] : [])
+              );
+            }
+          }
+
+          // D. Multi-symbol aesthetic patterns
+          var smallCapsName = applyFont(name, fontMaps.smallCaps);
+          var boldName = applyFont(name, fontMaps.bold);
+          var scriptName = applyFont(name, fontMaps.boldScript);
+
+          addResult('꧁༺ ' + boldName + ' ༻꧂', 'Emperor Wings Dual', ['Gaming', 'Royal', 'Gaming ID']);
+          addResult('★彡 ' + smallCapsName + ' 彡★', 'Nova Strike', ['Gaming', 'Cool']);
+          addResult('༒☬ ' + boldName + ' ☬༒', 'Mystic Guardian', ['Dark', 'Gaming', 'Gaming ID']);
+          addResult('亗 『' + name + '』 亗', 'Clan Leader ID', ['Gaming', 'Gaming ID']);
+          addResult('メ 𝒳 乂 ' + name + ' 乂 𝒳 メ', 'Blade Vortex', ['Gaming', 'Dark']);
+          addResult('𓆩⚡𓆪 ' + boldName + ' 𓆩⚡𓆪', 'Thunder Wings', ['Gaming', 'Cool', 'Dark']);
+          addResult('♛『' + scriptName + '』♛', 'Royal Diamond Frame', ['Royal', 'Fancy', 'Instagram']);
+          addResult('×͜× ' + smallCapsName + ' ࿐', 'Toxic Shadow', ['Gaming', 'Dark', 'Gaming ID']);
+          addResult('•| ' + boldName + ' |•', 'Symmetric Bar', ['Minimal', 'Cool']);
+          addResult('⫷ ' + scriptName + ' ⫸', 'Arrowhead Script', ['Cute', 'Fancy']);
+          addResult('༺ ' + spaceOut(name, ' ') + ' ༻', 'Wings Spaced', ['Minimal', 'Gaming']);
+          addResult('⚡ ' + spaceOut(name, '•') + ' ⚡', 'Lightning Dot', ['Cool', 'Symbols']);
+          addResult('〖 𝒱𝐼𝑃 〗 ' + boldName, 'VIP Gamer Tag', ['Gaming', 'Royal']);
+          addResult('亗 ' + smallCapsName + ' 亗', 'Emperor Small Caps', ['Gaming', 'Gaming ID']);
+          addResult('『OP』' + name + '✓', 'Verified Gamer ID', ['Gaming', 'Social Media']);
+          addResult('༺𝕯𝖊𝖛𝖎𝖑༻ ' + name, 'Devil Prefix Tag', ['Dark', 'Gaming']);
+          addResult('𓆩 ' + spaceOut(name, 'ㅤ') + ' 𓆪', 'Ghost Wings Spaced', ['Gaming', 'Gaming ID']);
+
+          return results;
+        }
+
+        // 6. UI State Management
+        var currentResults = [];
+        var activeCategory = 'All';
+        var searchQuery = '';
+        var selectedPreviewName = '';
+
+        var nameInput = document.getElementById('nameInput');
+        var generateActionBtn = document.getElementById('generateActionBtn');
+        var styleSearchInput = document.getElementById('styleSearchInput');
+        var cardsGrid = document.getElementById('cardsGrid');
+        var resultsCountBadge = document.getElementById('resultsCountBadge');
+        var btnCopyAllStyles = document.getElementById('btnCopyAllStyles');
+        var btnQuickPreview = document.getElementById('btnQuickPreview');
+        var btnClearAction = document.getElementById('btnClearAction');
+
+        // Render Generated Cards
+        function renderCards() {
+          if (!cardsGrid) return;
+          cardsGrid.innerHTML = '';
+
+          var q = searchQuery.toLowerCase().trim();
+
+          var filtered = currentResults.filter(function (item) {
+            var matchesCat = activeCategory === 'All' || item.cats.indexOf(activeCategory) !== -1;
+            var matchesSearch = !q || item.text.toLowerCase().indexOf(q) !== -1 || item.tag.toLowerCase().indexOf(q) !== -1;
+            return matchesCat && matchesSearch;
+          });
+
+          if (resultsCountBadge) {
+            resultsCountBadge.textContent = filtered.length + ' Styles';
+          }
+
+          if (filtered.length === 0) {
+            var emptyBox = document.createElement('div');
+            emptyBox.style.gridColumn = '1 / -1';
+            emptyBox.style.padding = '40px 20px';
+            emptyBox.style.textAlign = 'center';
+            emptyBox.style.color = '#9ca3af';
+            emptyBox.innerHTML = '<div style="font-size: 16px; font-weight:700; color:#fff; margin-bottom:8px;">No matching styles found</div><div>Try typing another keyword or selecting "All" category.</div>';
+            cardsGrid.appendChild(emptyBox);
+            return;
+          }
+
+          for (var i = 0; i < filtered.length; i++) {
+            var item = filtered[i];
+            var card = document.createElement('div');
+            card.className = 'name-card';
+
+            card.innerHTML =
+              '<div class="card-top-bar">' +
+                '<span class="card-tag">' + escapeHtml(item.tag) + '</span>' +
+                '<span class="card-num">#' + (i + 1) + '</span>' +
+              '</div>' +
+              '<div class="card-text">' + escapeHtml(item.text) + '</div>' +
+              '<div class="card-btn-row">' +
+                '<button class="btn-card-copy" data-copy="' + encodeURIComponent(item.text) + '">' +
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                    '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>' +
+                    '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>' +
+                  '</svg>' +
+                  '<span>Copy</span>' +
+                '</button>' +
+                '<button class="btn-card-preview" data-preview="' + encodeURIComponent(item.text) + '">' +
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                    '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>' +
+                    '<circle cx="12" cy="12" r="3"></circle>' +
+                  '</svg>' +
+                  '<span>Preview</span>' +
+                '</button>' +
+              '</div>';
+
+            cardsGrid.appendChild(card);
+          }
+        }
+
+        function escapeHtml(str) {
+          return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+        }
+
+        // Trigger Generation
+        function performGeneration() {
+          var val = nameInput ? nameInput.value : 'Sam';
+          currentResults = generateAllStyles(val);
+          renderCards();
+        }
+
+        if (generateActionBtn) {
+          generateActionBtn.addEventListener('click', function () {
+            performGeneration();
+            showToast('Styles Generated ✓');
+          });
+        }
+
+        if (nameInput) {
+          nameInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+              performGeneration();
+              showToast('Styles Generated ✓');
+            }
+          });
+        }
+
+        // Preset Chips
+        var presetChips = document.querySelectorAll('.chip-btn');
+        for (var c = 0; c < presetChips.length; c++) {
+          presetChips[c].addEventListener('click', function () {
+            var val = this.getAttribute('data-val');
+            if (nameInput) {
+              nameInput.value = val;
+              performGeneration();
+              showToast('Generated for "' + val + '" ✓');
+            }
+          });
+        }
+
+        // Search Input Filtering
+        if (styleSearchInput) {
+          styleSearchInput.addEventListener('input', function () {
+            searchQuery = this.value;
+            renderCards();
+          });
+        }
+
+        // Category Pills
+        var catPills = document.querySelectorAll('.cat-pill');
+        for (var cp = 0; cp < catPills.length; cp++) {
+          catPills[cp].addEventListener('click', function () {
+            for (var k = 0; k < catPills.length; k++) {
+              catPills[k].classList.remove('active');
+            }
+            this.classList.add('active');
+            activeCategory = this.getAttribute('data-cat') || 'All';
+            renderCards();
+          });
+        }
+
+        // Copy Text Helper (Robust fallback for all browsers)
+        function copyToClipboard(text, onSuccess) {
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(function () {
+              if (onSuccess) onSuccess();
+            }).catch(function () {
+              fallbackCopy(text, onSuccess);
+            });
+          } else {
+            fallbackCopy(text, onSuccess);
+          }
+        }
+
+        function fallbackCopy(text, onSuccess) {
+          var tempArea = document.createElement('textarea');
+          tempArea.value = text;
+          tempArea.style.position = 'fixed';
+          tempArea.style.left = '-9999px';
+          tempArea.style.top = '0';
+          document.body.appendChild(tempArea);
+          tempArea.focus();
+          tempArea.select();
+          try {
+            document.execCommand('copy');
+            if (onSuccess) onSuccess();
+          } catch (err) {
+            console.error('Copy fallback error', err);
+          }
+          document.body.removeChild(tempArea);
+        }
+
+        // Card Delegated Click Handling (Copy & Preview)
+        if (cardsGrid) {
+          cardsGrid.addEventListener('click', function (e) {
+            var copyBtn = e.target.closest('.btn-card-copy');
+            if (copyBtn) {
+              var textToCopy = decodeURIComponent(copyBtn.getAttribute('data-copy') || '');
+              copyToClipboard(textToCopy, function () {
+                copyBtn.classList.add('copied');
+                copyBtn.innerHTML =
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">' +
+                    '<polyline points="20 6 9 17 4 12"></polyline>' +
+                  '</svg>' +
+                  '<span>Copied!</span>';
+                showToast('Copied successfully ✓');
+                setTimeout(function () {
+                  copyBtn.classList.remove('copied');
+                  copyBtn.innerHTML =
+                    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                      '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>' +
+                      '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>' +
+                    '</svg>' +
+                    '<span>Copy</span>';
+                }, 1800);
+              });
+              return;
+            }
+
+            var previewBtn = e.target.closest('.btn-card-preview');
+            if (previewBtn) {
+              var textToPreview = decodeURIComponent(previewBtn.getAttribute('data-preview') || '');
+              openPreviewModal(textToPreview);
+            }
+          });
+        }
+
+        // Copy All Currently Displayed Styles
+        if (btnCopyAllStyles) {
+          btnCopyAllStyles.addEventListener('click', function () {
+            var q = searchQuery.toLowerCase().trim();
+            var visibleItems = currentResults.filter(function (item) {
+              var matchesCat = activeCategory === 'All' || item.cats.indexOf(activeCategory) !== -1;
+              var matchesSearch = !q || item.text.toLowerCase().indexOf(q) !== -1 || item.tag.toLowerCase().indexOf(q) !== -1;
+              return matchesCat && matchesSearch;
+            });
+
+            if (visibleItems.length === 0) {
+              showToast('No styles to copy');
+              return;
+            }
+
+            var allJoined = visibleItems.map(function (it) { return it.text; }).join('\n');
+            copyToClipboard(allJoined, function () {
+              showToast('All styles copied ✓');
+            });
+          });
+        }
+
+        // Clear Action
+        if (btnClearAction) {
+          btnClearAction.addEventListener('click', function () {
+            if (nameInput) {
+              nameInput.value = '';
+              nameInput.focus();
+            }
+            if (styleSearchInput) {
+              styleSearchInput.value = '';
+              searchQuery = '';
+            }
+            performGeneration();
+            showToast('Cleared');
+          });
+        }
+
+        // 7. Preview Modal & Client-Side Screenshot Engine
+        var previewModal = document.getElementById('previewModal');
+        var btnClosePreview = document.getElementById('btnClosePreview');
+        var previewModalName = document.getElementById('previewModalName');
+        var previewSample1 = document.getElementById('previewSample1');
+        var previewSample2 = document.getElementById('previewSample2');
+        var previewSample3 = document.getElementById('previewSample3');
+        var btnCopyFromModal = document.getElementById('btnCopyFromModal');
+        var btnDownloadScreenshot = document.getElementById('btnDownloadScreenshot');
+
+        function openPreviewModal(name) {
+          selectedPreviewName = name || (currentResults[0] ? currentResults[0].text : 'Sam');
+          if (previewModalName) previewModalName.textContent = selectedPreviewName;
+
+          var base = (nameInput ? nameInput.value : 'Sam').trim() || 'Sam';
+          if (previewSample1) previewSample1.textContent = '亗 ' + base + ' 亗';
+          if (previewSample2) previewSample2.textContent = applyFont(base, fontMaps.boldScript);
+          if (previewSample3) previewSample3.textContent = '𓆩' + base + '𓆪';
+
+          if (previewModal) previewModal.classList.add('active');
+        }
+
+        function closePreviewModal() {
+          if (previewModal) previewModal.classList.remove('active');
+        }
+
+        if (btnQuickPreview) {
+          btnQuickPreview.addEventListener('click', function () {
+            var first = currentResults.length > 0 ? currentResults[0].text : 'Sam';
+            openPreviewModal(first);
+          });
+        }
+
+        if (btnClosePreview) {
+          btnClosePreview.addEventListener('click', closePreviewModal);
+        }
+
+        if (previewModal) {
+          previewModal.addEventListener('click', function (e) {
+            if (e.target === previewModal) closePreviewModal();
+          });
+        }
+
+        if (btnCopyFromModal) {
+          btnCopyFromModal.addEventListener('click', function () {
+            copyToClipboard(selectedPreviewName, function () {
+              showToast('Copied successfully ✓');
+            });
+          });
+        }
+
+        // High Resolution Client-Side Canvas Screenshot Generation
+        if (btnDownloadScreenshot) {
+          btnDownloadScreenshot.addEventListener('click', function () {
+            try {
+              var sCanvas = document.createElement('canvas');
+              var sCtx = sCanvas.getContext('2d');
+              var sWidth = 900;
+              var sHeight = 520;
+              sCanvas.width = sWidth;
+              sCanvas.height = sHeight;
+
+              // Dark Futuristic Gradient Background
+              var bgGrad = sCtx.createRadialGradient(sWidth / 2, sHeight / 2, 50, sWidth / 2, sHeight / 2, 450);
+              bgGrad.addColorStop(0, '#1c1333');
+              bgGrad.addColorStop(1, '#07080d');
+              sCtx.fillStyle = bgGrad;
+              sCtx.fillRect(0, 0, sWidth, sHeight);
+
+              // Glow Circles
+              sCtx.save();
+              sCtx.beginPath();
+              sCtx.arc(140, 100, 160, 0, Math.PI * 2);
+              sCtx.fillStyle = 'rgba(168, 85, 247, 0.16)';
+              sCtx.filter = 'blur(40px)';
+              sCtx.fill();
+
+              sCtx.beginPath();
+              sCtx.arc(sWidth - 140, sHeight - 100, 160, 0, Math.PI * 2);
+              sCtx.fillStyle = 'rgba(16, 185, 129, 0.16)';
+              sCtx.filter = 'blur(40px)';
+              sCtx.fill();
+              sCtx.restore();
+
+              // Card Inner Frame
+              var pad = 36;
+              sCtx.strokeStyle = 'rgba(168, 85, 247, 0.4)';
+              sCtx.lineWidth = 2;
+              sCtx.strokeRect(pad, pad, sWidth - pad * 2, sHeight - pad * 2);
+
+              // Watermark Header
+              sCtx.textAlign = 'center';
+              sCtx.font = 'bold 15px -apple-system, sans-serif';
+              sCtx.fillStyle = '#a855f7';
+              sCtx.fillText('★ STYLISH NAME MAKER • PREMIUM ID CARD ★', sWidth / 2, 90);
+
+              // Featured Main Name
+              sCtx.font = 'bold 44px -apple-system, sans-serif';
+              sCtx.fillStyle = '#ffffff';
+              sCtx.shadowColor = 'rgba(168, 85, 247, 0.6)';
+              sCtx.shadowBlur = 24;
+              sCtx.fillText(selectedPreviewName, sWidth / 2, 230);
+              sCtx.shadowBlur = 0;
+
+              // Decorative Divider
+              sCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+              sCtx.setLineDash([6, 6]);
+              sCtx.beginPath();
+              sCtx.moveTo(120, 310);
+              sCtx.lineTo(sWidth - 120, 310);
+              sCtx.stroke();
+              sCtx.setLineDash([]);
+
+              // Sub Samples
+              var base = (nameInput ? nameInput.value : 'Sam').trim() || 'Sam';
+              sCtx.font = '20px -apple-system, sans-serif';
+              sCtx.fillStyle = '#d1d5db';
+              sCtx.fillText('亗 ' + base + ' 亗      •      ' + applyFont(base, fontMaps.boldScript) + '      •      𓆩' + base + '𓆪', sWidth / 2, 370);
+
+              // Footer Credit
+              sCtx.font = '13px -apple-system, sans-serif';
+              sCtx.fillStyle = '#34d399';
+              sCtx.fillText('Created with Stylish Name Maker • Developer by : CYBER X OF BANGLADESH', sWidth / 2, 450);
+
+              // Download Image as PNG
+              var dataUrl = sCanvas.toDataURL('image/png');
+              var dlLink = document.createElement('a');
+              dlLink.download = 'stylish-name-' + Date.now() + '.png';
+              dlLink.href = dataUrl;
+              document.body.appendChild(dlLink);
+              dlLink.click();
+              document.body.removeChild(dlLink);
+
+              showToast('Screenshot Downloaded ✓');
+            } catch (err) {
+              console.error('Screenshot download error:', err);
+              showToast('Error generating image');
+            }
+          });
+        }
+
+        // 8. Telegram Notification Popup with localStorage Persistence
+        var telegramPopup = document.getElementById('telegramPopup');
+        var btnTgJoinNow = document.getElementById('btnTgJoinNow');
+        var btnTgLater = document.getElementById('btnTgLater');
+        var btnTgCloseX = document.getElementById('btnTgCloseX');
+
+        var STORAGE_KEY_TG = 'stylish_name_tg_popup_dismissed';
+
+        function dismissTgPopup() {
+          if (telegramPopup) telegramPopup.classList.remove('show');
+          try {
+            localStorage.setItem(STORAGE_KEY_TG, 'true');
+          } catch (e) {}
+        }
+
+        try {
+          var isDismissed = localStorage.getItem(STORAGE_KEY_TG) === 'true';
+          if (!isDismissed) {
+            setTimeout(function () {
+              if (telegramPopup) telegramPopup.classList.add('show');
+            }, 1800);
+          }
+        } catch (e) {
+          setTimeout(function () {
+            if (telegramPopup) telegramPopup.classList.add('show');
+          }, 1800);
+        }
+
+        if (btnTgJoinNow) {
+          btnTgJoinNow.addEventListener('click', dismissTgPopup);
+        }
+        if (btnTgLater) {
+          btnTgLater.addEventListener('click', dismissTgPopup);
+        }
+        if (btnTgCloseX) {
+          btnTgCloseX.addEventListener('click', dismissTgPopup);
+        }
+
+        // 9. Initial Default Generation on page boot
+        performGeneration();
+      })();
+    </script>
+  </body>
+</html>
+<script async src="/.netlify/scripts/hud?variant=public" data-nf-variant="public" data-netlify-site-id="fd73e9ae-2aee-449e-a987-4b0e160c424f" data-app-host="app.netlify.com"></script>
